@@ -14,6 +14,7 @@ _ = setup(
     package_data={
         "ssc": [
             "custom_pages/*/templates/*.html",
+            "custom_pages/*/templates/*.xml",
             "site/templates/*.html",
             "static/*",
             "static/*/*",
