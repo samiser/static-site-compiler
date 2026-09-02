@@ -17,7 +17,8 @@
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="stylesheet" href="style.css" />
-  </head>
+    {% if feed %}<link rel="alternate" type="application/rss+xml" title="Samiser's blog" href="feed.xml" />
+    {% endif %}</head>
   <body>
     {% include "header.html" %} {% include "pages.html" %}
   </body>

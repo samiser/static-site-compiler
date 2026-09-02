@@ -8,9 +8,9 @@ from ssc.config.types import Config
 from .types import Pages
 
 
-def _generate_index_html(pages: Pages):
+def _generate_index_html(pages: Pages, feed: bool):
     return render_template(
-        Path(__file__).parent / "templates", "main.html", {"pages": pages}
+        Path(__file__).parent / "templates", "main.html", {"pages": pages, "feed": feed}
     )
 
 
@@ -31,7 +31,9 @@ def build(config: Config, custom_pages: Pages | None, out_dir: Path):
     all_pages = md_pages if custom_pages is None else md_pages + custom_pages
     pages = sorted(all_pages, key=lambda p: p.get("order", 99))
 
-    output = _generate_index_html(pages)
+    output = _generate_index_html(
+        pages, feed="blogs" in config and "base_url" in config
+    )
 
     write_index_html(out_dir, output)
 

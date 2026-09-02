@@ -15,7 +15,9 @@ def render_template(
         LastFMTopAlbums
         | DiscogsReleases
         | dict[str, Pages | PostsByYear]
+        | dict[str, Pages | bool]
         | dict[str, dict[int, Dive]]
+        | dict[str, str | list[dict[str, str]]]
     ),
 ) -> str:
     template_loader = jinja2.FileSystemLoader(searchpath=template_dir)

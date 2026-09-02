@@ -4,10 +4,10 @@
   <p>occasionally i like writing about things here</p>
   {% for year in blogs_by_year %}<h2>{{ year }}</h2>
   <ul>{% for blog in blogs_by_year[year] %}
-    <li><a href="#{{ blog["meta"]["date"] }}-{{ blog["meta"]["title"].lower().replace(" ", "-") }}"><em>{{ blog["meta"]["date"] }}</em> - {{ blog["meta"]["title"] }}</a></li>{% endfor %}
+    <li><a href="#{{ blog["anchor"] }}"><em>{{ blog["meta"]["date"] }}</em> - {{ blog["meta"]["title"] }}</a></li>{% endfor %}
   </ul>{% endfor %}
 </section>
-{% for blogs in blogs_by_year.values() %}{% for blog in blogs %}<section id="{{ blog["meta"]["date"] }}-{{ blog["meta"]["title"].lower().replace(" ", "-") }}">
+{% for blogs in blogs_by_year.values() %}{% for blog in blogs %}<section id="{{ blog["anchor"] }}">
   <h1>{{ blog["meta"]["title"] }}</h1>
   <p><em>{{ blog["meta"]["date"] }}</em></p>
   <p><em>{{ blog["meta"]["time_to_read"] }} minute read</em></p>

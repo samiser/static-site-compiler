@@ -57,6 +57,7 @@ ssc --pages <pages-dir> --out <output-dir> [options]
 - `--blog-posts` - Directory containing blog post Markdown files
 - `--dive-log` - Path to a UDDF dive log file
 - `--secrets` - Path to secrets file (required for Last.fm/Discogs integrations)
+- `--base-url` - Base URL of the deployed site, e.g. `https://example.com` (with `--blog-posts`, enables generating an RSS feed at `feed.xml`)
 
 ### Example
 

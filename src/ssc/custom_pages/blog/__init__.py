@@ -1,12 +1,13 @@
 __all__: list[str] = []
 
 
-# only import create if that's what is being imported
+# only import create/create_feed if that's what is being imported
 def __getattr__(name: str):
-    if name == "create":
-        from .blog import create
+    if name in ("create", "create_feed"):
+        from . import blog
 
-        globals()["create"] = create
-        __all__.append("create")
-        return create
+        attr = getattr(blog, name)
+        globals()[name] = attr
+        __all__.append(name)
+        return attr
     raise AttributeError(f"module {__name__} has no attribute {name}")

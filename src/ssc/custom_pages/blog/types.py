@@ -13,6 +13,7 @@ class Metadata(TypedDict):
 
 class Post(TypedDict):
     content: str
+    anchor: str
     meta: Metadata
 
 

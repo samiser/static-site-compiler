@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Samiser's blog</title>
+    <link>{{ base_url }}/#blog</link>
+    <atom:link href="{{ base_url }}/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>occasionally i like writing about things here</description>
+    {% for item in items %}<item>
+      <title>{{ item["title"] | e }}</title>
+      <link>{{ item["link"] }}</link>
+      <guid isPermaLink="true">{{ item["link"] }}</guid>
+      <pubDate>{{ item["pub_date"] }}</pubDate>
+      <description><![CDATA[{{ item["content"] }}]]></description>
+    </item>
+    {% endfor %}</channel>
+</rss>

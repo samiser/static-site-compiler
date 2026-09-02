@@ -1,6 +1,8 @@
+import re
 import frontmatter
 from collections import defaultdict
-from datetime import date
+from datetime import date, datetime, timezone
+from email.utils import format_datetime
 from pathlib import Path
 from typing import cast
 
@@ -46,6 +48,7 @@ def parse_post(raw_md: frontmatter.Post):
 
     parsed: Post = {
         "content": content,
+        "anchor": f"{date}-{title.lower().replace(' ', '-')}",
         "meta": meta,
     }
 
@@ -74,4 +77,45 @@ def create(_secrets: Secrets | None, config: Config) -> Page:
 
     return Page(
         {"title": "blog", "content": html, "navbar": True, "type": "multi-page"}
+    )
+
+
+def _absolutize_urls(html: str, base_url: str) -> str:
+    """Feed readers can't resolve relative or fragment urls in feed content."""
+    html = re.sub(r'(src|href)="#', rf'\1="{base_url}/#', html)
+    html = re.sub(r'(src|href)="/(?!/)', rf'\1="{base_url}/', html)
+    html = re.sub(r'(src|href)="(?![a-z][a-z0-9+.-]*:|//)', rf'\1="{base_url}/', html)
+    return html
+
+
+def _rfc822_date(post_date: object) -> str:
+    d = cast(date, post_date)
+    return format_datetime(datetime(d.year, d.month, d.day, tzinfo=timezone.utc))
+
+
+def create_feed(config: Config) -> str | None:
+    blogs_dir = config.get("blogs")
+    base_url = config.get("base_url")
+    if blogs_dir is None or base_url is None:
+        return None
+
+    posts = parse_posts(blogs_dir, exclude=["README.md"])
+
+    items = [
+        {
+            "title": post["meta"]["title"],
+            "link": f"{base_url}/#{post['anchor']}",
+            "pub_date": _rfc822_date(post["meta"]["date"]),
+            # a literal "]]>" in post html would end the CDATA section early
+            "content": _absolutize_urls(post["content"], base_url).replace(
+                "]]>", "]]]]><![CDATA[>"
+            ),
+        }
+        for post in posts
+    ]
+
+    return render_template(
+        Path(__file__).parent / "templates",
+        "feed.xml",
+        {"base_url": base_url, "items": items},
     )

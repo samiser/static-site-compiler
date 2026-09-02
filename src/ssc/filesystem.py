@@ -28,3 +28,9 @@ def write_index_html(out_path: Path, output: str):
     with outfile.open(mode="w") as f:
         _: int = f.write(output)
         print(f"Blog compiled and written to {outfile}")
+
+
+def write_file(outfile: Path, output: str):
+    with outfile.open(mode="w") as f:
+        _: int = f.write(output)
+        print(f"Written to {outfile}")
