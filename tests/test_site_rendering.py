@@ -128,7 +128,7 @@ def test_main_rendering(built_site: Path):
 <p><img loading="lazy" alt="an image" src="images/blog_image.png" /></p>
 <p>A <a href="#blog">fragment link</a> and an <a href="https://example.org">absolute link</a>.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"test"</span><span class="p">)</span>
 </code></pre></div>
   <hr>
   <a href="#blog">Back</a>
@@ -174,7 +174,7 @@ def test_feed_rendering(built_site: Path):
 <p><img loading="lazy" alt="an image" src="https://example.com/images/blog_image.png" /></p>
 <p>A <a href="https://example.com/#blog">fragment link</a> and an <a href="https://example.org">absolute link</a>.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"test"</span><span class="p">)</span>
 </code></pre></div>]]></description>
     </item>
     </channel>
